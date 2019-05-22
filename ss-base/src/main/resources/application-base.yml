@@ -1,0 +1,19 @@
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          azure:
+            client-id: 88963391-5b06-4b38-afc1-fd61caf2fef8
+            client-secret: '0DY00Gje8uhaSuNTmVDPPnSU50DUa8Y+xrDXOIbmukQ='
+        provider:
+          azure:
+            authorization-uri: https://login.microsoftonline.com/9394f190-ffc4-429f-be0a-0f097027e8aa/oauth2/authorize
+            token-uri: https://login.microsoftonline.com/9394f190-ffc4-429f-be0a-0f097027e8aa/oauth2/token
+            user-info-uri: https://login.microsoftonline.com/9394f190-ffc4-429f-be0a-0f097027e8aa/openid/userinfo
+            jwk-set-uri: https://login.microsoftonline.com/9394f190-ffc4-429f-be0a-0f097027e8aa/discovery/keys
+
+azure:
+  activedirectory:
+    # Specifies your Active Directory ID:
+    tenant-id: 9394f190-ffc4-429f-be0a-0f097027e8aa

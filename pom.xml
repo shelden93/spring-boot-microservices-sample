@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.shelden</groupId>
+    <artifactId>spring-boot-microservices-sample</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+
+    <name>Spring Boot Microservices Sample</name>
+    <description>Spring Boot Microservices Sample</description>
+    <url>https://github.com/shelden93/spring-boot-microservices-sample</url>
+
+    <packaging>pom</packaging>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.1.5.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>11</java.version>
+        <azure.version>2.1.6</azure.version>
+        <docker.image.prefix>org.shelden</docker.image.prefix>
+    </properties>
+
+    <modules>
+        <module>ss-base</module>
+        <module>ss-gateway</module>
+        <module>ss-logs</module>
+        <module>ss-uaa</module>
+    </modules>
+</project>

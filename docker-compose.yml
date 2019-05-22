@@ -1,0 +1,76 @@
+version: '3'
+
+services:
+
+  docker-rabbitmq:
+    container_name: ss-rabbitmq
+    image: rabbitmq:management
+    ports:
+      - 5672:5672
+      - 15672:15672
+
+  docker-postgres:
+    container_name: ss-postgres
+    image: postgres:latest
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: ss-sql-db
+
+  docker-mongo:
+    container_name: ss-mongo
+    image: mongo:latest
+    restart: always
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+      MONGO_INITDB_DATABASE: ss-logs
+
+  docker-ss-gateway:
+    container_name: ss-gateway
+    build:
+      context: ./ss-gateway
+      dockerfile: Dockerfile
+    image: org.shelden/ss-gateway:latest
+    depends_on:
+      - docker-ss-logs
+      - docker-ss-uaa
+    ports:
+      - 80:80
+
+  docker-ss-logs:
+    container_name: ss-logs-api
+    build:
+      context: ss-logs
+      dockerfile: Dockerfile
+    image: org.shelden/ss-logs:latest
+    depends_on:
+      - docker-mongo
+      - docker-rabbitmq
+    ports:
+      - 8080
+    environment:
+      SPRING_DATA_MONGODB_HOST: ss-mongo
+      SPRING_RABBITMQ_HOST: ss-rabbitmq
+      SERVER_SERVLET_CONTEXT_PATH: /logs
+
+  docker-ss-uaa:
+    container_name: ss-uaa-api
+    build:
+      context: ss-uaa
+      dockerfile: Dockerfile
+    image: org.shelden/ss-uaa:latest
+    depends_on:
+      - docker-postgres
+      - docker-rabbitmq
+    ports:
+      - 8080
+    environment:
+      SPRING_RABBITMQ_HOST: ss-rabbitmq
+      SPRING_DATASOURCE_URL: jdbc:postgresql://ss-postgres:5432/ss-sql-db
+      SERVER_SERVLET_CONTEXT_PATH: /uaa
+

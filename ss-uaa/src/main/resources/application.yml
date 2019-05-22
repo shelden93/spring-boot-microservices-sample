@@ -1,0 +1,32 @@
+spring:
+  profiles:
+    include: base
+  jpa:
+    database: POSTGRESQL
+    hibernate:
+      # Hibernate ddl auto (create, create-drop, update)
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            # Fix Postgres JPA Error (Method org.postgresql.jdbc.PgConnection.createClob() is not yet implemented).
+            non_contextual_creation: true
+        # The SQL dialect makes Hibernate generate better SQL for the chosen database
+        dialect: org.hibernate.dialect.PostgreSQL95Dialect
+  datasource:
+    name: ss-uaa-ds
+    url: jdbc:postgresql://localhost:5432/ss-sql-db
+    driverClassName: org.postgresql.Driver
+    username: postgres
+    password: postgres
+    tomcat:
+      # Keep the connection alive if idle for a long time (needed in production)
+      testWhileIdle: true
+      validationQuery: SELECT 1
+
+azure:
+  activedirectory:
+    # Specifies your Active Directory Groups:
+    active-directory-groups: Sample Group

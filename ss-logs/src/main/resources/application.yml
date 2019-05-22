@@ -1,0 +1,10 @@
+spring:
+  profiles:
+    include: base
+
+azure:
+  activedirectory:
+    client-id: 88963391-5b06-4b38-afc1-fd61caf2fef8
+    client-secret: '0DY00Gje8uhaSuNTmVDPPnSU50DUa8Y+xrDXOIbmukQ='
+    user-group:
+      allowed-groups: Sample Group
